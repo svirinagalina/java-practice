@@ -3,13 +3,9 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String firstLine = scanner.nextLine();
-        int n = Integer.parseInt(firstLine.trim());
 
-        if (n < 0) {
-            System.out.println("ERROR");
-            return;
-        }
+        int n = scanner.nextInt();
+
 
         Purchase[] items = new Purchase[n];
 
@@ -36,6 +32,3 @@ class Main {
             }
         }
 
-        //put your code here
-    }
-}

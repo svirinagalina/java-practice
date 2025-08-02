@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/Purchase.iml" filepath="$PROJECT_DIR$/Purchase.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/BusinessTrip.iml" filepath="$PROJECT_DIR$/BusinessTrip.iml" />
+>>>>>>> d879888... Initial commit: BusinessTrip project
     </modules>
   </component>
 </project>
