@@ -3,9 +3,10 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         int n = scanner.nextInt();
         scanner.nextLine();
+        String firstLine = scanner.nextLine();
+        int n = Integer.parseInt(firstLine.trim());
 
         if (n < 0) {
             System.out.println("ERROR");
@@ -35,5 +36,7 @@ class Main {
                 System.out.println(p);
             }
         }
+
+        //put your code here
     }
 }
