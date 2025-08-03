@@ -5,8 +5,12 @@ class Main {
         Scanner scanner = new Scanner(System.in);
 
         int n = scanner.nextInt();
+        scanner.nextLine();
 
-
+        if (n < 0) {
+            System.out.println("ERROR");
+            return;
+        }
         Purchase[] items = new Purchase[n];
 
         for (int i = 0; i < items.length; i++) {
@@ -31,4 +35,5 @@ class Main {
                 System.out.println(p);
             }
         }
-
+    }
+}
