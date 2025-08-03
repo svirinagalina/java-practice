@@ -23,7 +23,7 @@
 
 Each file or package represents a separate topic or task from:
 
-- Online Java courses (e.g., Kata Academy)
+- Online Java courses (e.g., Stepik)
 - Custom mini-projects
 - Self-made exercises based on real-world logic
 
