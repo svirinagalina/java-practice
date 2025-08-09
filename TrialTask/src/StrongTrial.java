@@ -35,3 +35,4 @@ public class StrongTrial extends Trial {
         return getSurname() + ";" + getScore1() + ";" + getScore2() + ";" + time;
     }
 }
+//
