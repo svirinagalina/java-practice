@@ -1,6 +1,6 @@
-package EmployeesTask;
+package EmployeeTask;
 
-public class Programmer extends Employees {
+public class Programmer extends Employee {
     private String status;
     private String specialization;
 
@@ -13,12 +13,13 @@ public class Programmer extends Employees {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
     public String getSpecialization() {
-            return getSpecialization();
+        return getSpecialization();
     }
 
     public void setSpecialization(String specialization) {

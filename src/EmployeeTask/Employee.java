@@ -1,12 +1,12 @@
-package EmployeesTask;
+package EmployeeTask;
 
-public class Employees {
+public class Employee {
     private String surname;
     private String gender;
     private int age;
     private int salary;
 
-    public Employees(String surname, String gender, int age, int salary) {
+    public Employee(String surname, String gender, int age, int salary) {
 
         this.surname = surname;
         this.gender = gender;
@@ -25,15 +25,19 @@ public class Employees {
     public String getGender() {
         return gender;
     }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
+
     public int getAge() {
         return age;
     }
+
     public void setAge(int age) {
         this.age = age;
     }
+
     public int getSalary() {
         return salary;
     }
@@ -42,9 +46,10 @@ public class Employees {
         this.salary = salary;
     }
 
-    public void show () {
+    public void show() {
         System.out.printf("%s;%s;%d;%d\n", surname, gender, age, salary);
     }
+
     boolean isPensioner() {
 
         return (gender.equals("female") && age >= 58) || (gender.equals("male") && age >= 63);
