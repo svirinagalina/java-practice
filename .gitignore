@@ -1,1 +1,18 @@
+### IntelliJ IDEA ###
+.idea/
+*.iml
+out/
+target/
 
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+
+### Logs ###
+*.log
+
+### OS files ###
+.DS_Store
+Thumbs.db
