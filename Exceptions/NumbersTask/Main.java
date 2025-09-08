@@ -1,4 +1,4 @@
-package NumbersTask;
+package Exceptions.NumbersTask;
 
 import java.util.*;
 
