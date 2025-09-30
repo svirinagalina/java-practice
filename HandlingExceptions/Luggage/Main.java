@@ -1,3 +1,5 @@
+package HandlingExceptions.Luggage;
+
 import java.util.Scanner;
 
 public class Main {

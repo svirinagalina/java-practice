@@ -1,4 +1,7 @@
+package HandlingExceptions.Luggage;
+
 class Luggage {
+
     private final double maxWeight;
 
     public Luggage(double maxWeight) {
