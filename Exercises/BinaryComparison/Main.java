@@ -1,4 +1,4 @@
-package Exercises;
+package BinaryComparison;
 
 public class Main {
     public static void main(String[] args) {
