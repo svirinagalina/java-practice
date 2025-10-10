@@ -1,4 +1,4 @@
-package StandardInterfaces.Cars;
+package Cars;
 
 public class Main {
 }
