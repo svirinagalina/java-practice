@@ -1,3 +1,5 @@
+package OOP.TransportTask;
+
 public interface Transport {
     boolean canCarry(double weight);
 

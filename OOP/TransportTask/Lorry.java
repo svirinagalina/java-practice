@@ -1,3 +1,5 @@
+package OOP.TransportTask;
+
 public class Lorry implements Transport {
     private double maxWeight;
     private double totalWeight;
@@ -26,3 +28,5 @@ public class Lorry implements Transport {
     public String toString() {
         return "Lorry{maxWeight=" + maxWeight + ", totalWeight=" + totalWeight + "}";
     }
+}
+
