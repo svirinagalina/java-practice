@@ -959,9 +959,4 @@ for (int i = 0; i < list.size(); i++) { ... }
 Iterator<String> it = list.iterator();
 while (it.hasNext()) { ... }
 
-Через ListIterator — можно идти в обе стороны:
-ListIterator<String> it = list.listIterator();
-
-Через Stream API — для функционального стиля:
-list.forEach(System.out::println);
 
