@@ -1,4 +1,4 @@
-package FunctionalInterfaces;
+package FunctionalInterfaces.Purchase;
 
 public class PurchaseFunctional {
     private String name;

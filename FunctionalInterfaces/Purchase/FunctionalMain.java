@@ -1,4 +1,4 @@
-package FunctionalInterfaces;
+package FunctionalInterfaces.Purchase;
 
 import java.util.ArrayList;
 import java.util.Collections;
