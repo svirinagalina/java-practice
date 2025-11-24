@@ -1,4 +1,4 @@
-package Streams;
+package Streams.Dogs;
 
 import java.util.*;
 

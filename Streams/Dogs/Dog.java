@@ -1,4 +1,4 @@
-package Streams;
+package Streams.Dogs;
 
 public class Dog {
     private String name;

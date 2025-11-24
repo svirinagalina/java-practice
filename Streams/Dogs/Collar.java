@@ -1,4 +1,4 @@
-package Streams;
+package Streams.Dogs;
 
 class Collar {
     String color;
