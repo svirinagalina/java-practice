@@ -108,7 +108,7 @@ validate
 compile
 
 Компилирует исходный код Java.
-Результат кладётся в target/classes.
+Результат кладётся в target/classes. 
 
 test
 
