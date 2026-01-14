@@ -42,18 +42,20 @@
 
 ## Spring Security: базовые понятия
 
-Spring Security — это фреймворк Spring для защиты веб-приложений через аутентификацию (кто ты?), авторизацию (что можешь?) и защиту от атак (CSRF, сессии, XSS).
-​
+Spring Security это фреймворк, который позволяет защищать веб приложения через ауентификацию авторизщацию и защиту от атак 
+работает через цепочку фильтров перед контроллерам, прехватывает запросы, проверяет токены пароли роли из UserDetailsService and AuthentificationManager
+основные классы и интерфейсы 
+AuthenticationFilter
 
-Работает через цепочку фильтров перед контроллерами: перехватывает запросы, проверяет токены/пароли, роли из UserDetailsService и AuthenticationManager. По умолчанию с spring-boot-starter-security всё защищено паролем user
+ AuthnticationManager
+AuthnticationProvider
+UserDetailsService
+PasswordEncoder
 
-Что такое авторизация, аутентификация.
-
-Идентификация — пользователь сообщает системе, кто он, например, вводит логин или email (без пароля на уровне определения термина).
-
-Аутентификация — система проверяет, что это действительно этот пользователь: сверяет введенный пароль/токен/код с данными, которые уже хранятся.
-
-Авторизация — после успешной аутентификации система решает, что этому пользователю разрешено: какие ресурсы и операции доступны в зависимости от ролей/прав.
+Основные понятия 
+Principal -- текущий пользователь
+Authorities -- роли пользователя
+Authentication  -- аутентифирован он или нет S
 ​
 ## Principal, Authorities, Authentication
 
@@ -108,42 +110,18 @@ Basic authentication — это протокол уровня HTTP (через h
 
 ## Как достать авторизованного пользователя
 
-Как достать авторизованного пользователя из Spring Security?
+1) Через SecurityContextHolder
+getContext().getAuthetication()
+auth.getPRincipal()
 
-Авторизованного пользователя можно получить из SecurityContextHolder или прямо в аргументах контроллера через Principal / Authentication / @AuthenticationPrincipal.
-​
+2) Через параметр метода
+public String me(Authentication authentication)
+return auth.getPrincipal
 
-Через SecurityContextHolder
-В любом бине/сервисе:
+3) через аннотацию @AuthenticationPrincipal
+   return user.getUsername()
+   
 
-java
-Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-Object principal = auth.getPrincipal(); // UserDetails или ваш User
-Здесь principal — текущий залогиненный пользователь.
-​
-
-В контроллере через аргументы метода
-Через Principal или Authentication:
-
-java
-@GetMapping("/me")
-public String me(Principal principal) {
-    return principal.getName();
-}
-java
-@GetMapping("/me")
-public String me(Authentication auth) {
-    return auth.getName(); // или (UserDetails) auth.getPrincipal()
-}
-  
-
-Через @AuthenticationPrincipal (сразу ваш UserDetails / User):
-
-java
-@GetMapping("/me")
-public String me(@AuthenticationPrincipal MyUserDetails user) {
-    return user.getUsername();
-}
 
 ## Процесс логина в Spring Security
 
@@ -299,6 +277,11 @@ CSRF (Cross‑Site Request Forgery) — это когда злоумышленн
 ​
 CORS — это правило в браузере: «можно ли странице с одного домена читать ответы с другого домена». Когда твой фронт на http://localhost:3000 обращается к API на http://localhost:8080, браузер не даёт JS‑коду трогать ответ, пока сервер явно не скажет в заголовке Access-Control-Allow-Origin, что этому домену доверяет; поэтому если CORS не настроен, фронтендер видит «CORS error» и думает, что сервер сломан, хотя на самом деле браузер просто блокирует кросс‑доменный доступ к данным.
 ​
+Атака 1 (CORS): evil.com пытается fetch('bank.com/balance') → браузер блокирует ответ
+Атака 2 (CSRF): evil.com делает <form action="bank.com/transfer"> → запрос ушёл с куки, но без CSRF-токена банк игнорирует
+
+Итог: CORS защищает чтение, CSRF — выполнение действий.
+​
 
 ## Связи таблиц в Hibernate
 
@@ -325,31 +308,23 @@ M2M (many‑to‑many) — многие ко многим: студент ↔ к
 
 ## Lazy и Eager загрузка
 
-Что такое Lazy и Eager?  
-Когда использовать Lazy и Eager в своем проекте?
+azy (FetchType.LAZY) — связанные сущности не загружаются сразу, а только по требованию (при первом обращении user.getOrders()). Hibernate создаёт прокси и делает отдельный SQL-запрос, когда ты реально обращаешься к коллекции.
 
-Lazy и Eager — это стратегии загрузки связанных сущностей: Lazy грузит их «по требованию», Eager — сразу вместе с родительской сущностью.
-​
+Eager (FetchType.EAGER) — связанные сущности загружаются сразу вместе с родителем, обычно через JOIN-запрос.
 
-Что такое Lazy и Eager
-Lazy (FetchType.LAZY) — связанный объект/коллекция не загружается сразу; Hibernate подставляет прокси и делает отдельный запрос в БД, когда ты впервые обращаешься к геттеру (user.getOrders()).
-​
+Когда использовать Lazy:
 
-Eager (FetchType.EAGER) — связанный объект/коллекция загружается немедленно при загрузке «родителя», обычно через join‑запрос(ы).
-​
-
-Когда использовать Lazy
 Если связь не всегда нужна (например, у User коллекция orders, которую открывают только на отдельной странице).
-​
 
-Если это большие коллекции (@OneToMany, @ManyToMany) — чтобы не тянуть тысячи строк каждый раз и не убивать производительность.
-​
+Для больших коллекций (@OneToMany, @ManyToMany) — по умолчанию Lazy, чтобы не тянуть тысячи строк каждый раз.
 
-Когда использовать Eager
-Если связанный объект маленький и почти всегда нужен для бизнес‑логики, например @ManyToOne User -> Role или обязательный Profile для User.
-​
+Когда использовать Eager:
 
-Удобно, когда важно избежать LazyInitializationException вне сессии и ты уверен, что лишних данных немного.
+Если связанный объект маленький и почти всегда нужен (@ManyToOne User → Role или @ManyToOne Order → User).
+
+По умолчанию @ManyToOne и @OneToOne — Eager.
+
+Проблема Lazy: LazyInitializationException — если обращаешься к коллекции вне сессии Hibernate (например, в контроллере после закрытия транзакции). Решается через JOIN FETCH, @Transactional на сервисе или DTO.
 
 ## Каскады в Hibernate и БД
 
@@ -449,7 +424,7 @@ HTTP протокол
 GET — получить ресурс, без изменения состояния на сервере; чаще всего используется для чтения данных.
 ​
 
-POST — создать ресурс или выполнить действие с телом запроса (форма логина, создание сущности и т.п.).
+POST — отправляет данные на сервер в теле запроса  (форма логина, создание сущности и т.п.).
 ​
 
 PUT — полностью обновить ресурс по заданному URL (часто «создать или заменить»).
